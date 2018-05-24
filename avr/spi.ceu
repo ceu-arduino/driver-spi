@@ -100,9 +100,7 @@ code/await Spi (none) -> NEVER do
 end
 
 code/await SPI_Transaction (var u32 freq, var u8 byte_order, var u8 mode, var int? cs, var int? csn) -> NEVER do
-#ifdef CEU_FEATURES_ISR_SLEEP
     { ceu_pm_set(CEU_PM_SPI, 1); }
-#endif
     emit SPI_TRANSACTION_BEGIN(freq,byte_order,mode);
     if cs? then
         _digitalWrite(cs!, _HIGH);
@@ -117,9 +115,7 @@ code/await SPI_Transaction (var u32 freq, var u8 byte_order, var u8 mode, var in
             _digitalWrite(csn!, _HIGH);
         end
         emit SPI_TRANSACTION_END;
-#ifdef CEU_FEATURES_ISR_SLEEP
         {ceu_pm_set(CEU_PM_SPI, 0);}
-#endif
     end
     await FOREVER;
 end
