@@ -1,0 +1,15 @@
+#include "wclock.ceu"
+#include "spi.ceu"
+
+_S.begin(9600);
+
+spawn Spi();
+
+var int i;
+loop i do
+    watching SPI_Transaction(1400000, SPI_MSBFIRST, SPI_MODE2, _, _) do
+        var byte v = await SPI_Transfer(i);
+        { S.print("> "); S.println(@v); _DELAY(10); }
+    end
+    await 1s;
+end

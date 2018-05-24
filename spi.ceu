@@ -1,0 +1,11 @@
+output on/off SPI;
+
+output (u32 clock, u8 bit_order, u8 data_mode) SPI_TRANSACTION_BEGIN;
+output none                                    SPI_TRANSACTION_END;
+
+output (byte? value) SPI_TRANSFER_REQUEST;
+input  byte          SPI_TRANSFER_DONE;
+
+code/await Spi             (none)            -> NEVER;
+code/await SPI_Transaction (var u32 freq, var u8 byte_order, var u8 mode, var int? cs, var int? csn) -> NEVER;
+code/await SPI_Transfer    (var byte? value) -> byte;
