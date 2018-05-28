@@ -2,11 +2,11 @@
 #include "wclock.ceu"
 #include "spi.ceu"
 
-output on/off PIN_09;
-output on/off PIN_08;
+output high/low PIN_09;
+output high/low PIN_08;
 
-emit PIN_08(off);
-emit PIN_09(off);
+emit PIN_08(low);
+emit PIN_09(low);
 
 _Serial.begin(9600);
 _Serial.println("=");
