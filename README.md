@@ -66,7 +66,7 @@ Return:
 
 - `byte`: value received from the peripheral
 
-Transfers must always be enclosed in [transactions](#spi_transaction).
+Transfers must be always enclosed in [transactions](#spi_transaction).
 
 ### Examples
 
