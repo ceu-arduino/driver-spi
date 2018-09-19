@@ -1,12 +1,12 @@
-#include "gpio.ceu"
+#include "out.ceu"
 #include "wclock.ceu"
 #include "spi.ceu"
 
-output high/low PIN_09;
-output high/low PIN_08;
+output high/low OUT_09;
+output high/low OUT_08;
 
-emit PIN_08(low);
-emit PIN_09(low);
+emit OUT_08(low);
+emit OUT_09(low);
 
 _Serial.begin(9600);
 _Serial.println("=");

@@ -1,7 +1,7 @@
 #include "wclock.ceu"
 #include "spi.ceu"
 
-output high/low PIN_08;
+output high/low OUT_08;
 
 _Serial.begin(9600);
 _Serial.println("=");
