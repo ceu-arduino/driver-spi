@@ -16,23 +16,21 @@ _Serial.begin(9600);
 
 var Lock spi = _;
 
-watching Spi() do
-    var int i;
-    loop i do
-        { Serial.print("> "); Serial.println(@i); _DELAY(10); }
-        par/and do
-            lock spi do
-                watching SPI_Transaction(1400000, SPI_MSBFIRST, SPI_MODE0, _, 8) do
-                    await SPI_Transfer(i);
-                end
-            end
-        with
-            lock spi do
-                watching SPI_Transaction(1400000, SPI_MSBFIRST, SPI_MODE0, _, 9) do
-                    await SPI_Transfer(i);
-                end
+var int i;
+loop i do
+    { Serial.print("> "); Serial.println(@i); _DELAY(10); }
+    par/and do
+        lock spi do
+            watching SPI_Transaction(1400000, SPI_MSBFIRST, SPI_MODE0, _, 8) do
+                await SPI_Transfer_8(i);
             end
         end
-        await 1s;
+    with
+        lock spi do
+            watching SPI_Transaction(1400000, SPI_MSBFIRST, SPI_MODE0, _, 9) do
+                await SPI_Transfer_8(i);
+            end
+        end
     end
+    await 1s;
 end

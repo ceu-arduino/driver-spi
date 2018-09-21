@@ -10,28 +10,12 @@
 
 ### Code Abstractions
 
-#### Spi
-
-Initializes the SPI.
-
-```
-code/await Spi (none) -> NEVER;
-```
-
-Parameters:
-
-- `none`
-
-Return:
-
-- `NEVER`: never returns
-
 #### SPI_Transaction
 
 Sets up an SPI transaction with the given parameters.
 
 ```
-code/await SPI_Transaction (var u32 freq, var u8 byte_order, var u8 mode, var int? cs, var int? csn) -> NEVER;
+code/await SPI_Transaction (var u32 freq, var u8 bit_order, var u8 mode, var int? cs, var int? csn) -> NEVER;
 ```
 
 Parameters:
@@ -52,10 +36,28 @@ SPI transactions cannot be concurrent and must be serialized accordingly.
 
 #### SPI_Transfer
 
+Transmits and receives a vector of bytes.
+
+```
+code/await SPI_Transfer (var&[] byte buf) -> none;
+```
+
+Parameters:
+
+- `&[] byte`: reference to single buffer to transfer and receive in place
+
+Return:
+
+- `none`
+
+Transfers must be always enclosed in [transactions](#spi_transaction).
+
+#### SPI_Transfer_8
+
 Transmits and receives a byte.
 
 ```
-code/await SPI_Transfer (var byte? value) -> byte;
+code/await SPI_Transfer_8 (var byte? v) -> byte;
 ```
 
 Parameters:

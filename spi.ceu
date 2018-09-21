@@ -1,11 +1,7 @@
-output on/off SPI;
+#ifndef USART_BUF_N
+#define USART_BUF_N 32
+#endif
 
-output (u32 clock, u8 bit_order, u8 data_mode) SPI_TRANSACTION_BEGIN;
-output none                                    SPI_TRANSACTION_END;
-
-output (byte? value) SPI_TRANSFER_REQUEST;
-input  none          SPI_TRANSFER_DONE;
-
-code/await Spi             (none)            -> NEVER;
-code/await SPI_Transaction (var u32 freq, var u8 byte_order, var u8 mode, var int? cs, var int? csn) -> NEVER;
-code/await SPI_Transfer    (var byte? value) -> byte;
+code/await SPI_Transaction (var u32 freq, var u8 bit_order, var u8 mode, var int? cs, var int? csn) -> NEVER;
+code/await SPI_Transfer    (var&[] byte  buf) -> none;
+code/await SPI_Transfer_8  (var    byte? v)   -> byte;

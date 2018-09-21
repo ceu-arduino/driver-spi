@@ -16,23 +16,21 @@ emit OUT_09(high);      // disables slave
 
 _Serial.begin(9600);
 
-watching Spi() do
-    var int i;
-    loop i do
-        { Serial.print("> "); Serial.println(@i); _DELAY(10); }
-        await 1s;
+var int i;
+loop i do
+    { Serial.print("> "); Serial.println(@i); _DELAY(10); }
+    await 1s;
 
-        var byte v = _;
-        watching SPI_Transaction(1400000, SPI_MSBFIRST, SPI_MODE0, _, 8) do
-            v = await SPI_Transfer(i);
-        end
-
-        await 1s;
-
-        watching SPI_Transaction(1400000, SPI_MSBFIRST, SPI_MODE0, _, 9) do
-            await SPI_Transfer(v);
-        end
-
-        await 1s;
+    var byte v = _;
+    watching SPI_Transaction(1400000, SPI_MSBFIRST, SPI_MODE0, _, 8) do
+        v = await SPI_Transfer_8(i);
     end
+
+    await 1s;
+
+    watching SPI_Transaction(1400000, SPI_MSBFIRST, SPI_MODE0, _, 9) do
+        await SPI_Transfer_8(v);
+    end
+
+    await 1s;
 end
