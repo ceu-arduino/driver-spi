@@ -107,7 +107,7 @@ code/await SPI_Transfer_8 (var byte? v) -> byte do
     if not v? then
         v = _SPDR;
     end
-    var[1] byte vs = [v];
+    var[1] byte vs = [v!];
     await SPI_Transfer(&vs);
     escape vs[0];
 end
